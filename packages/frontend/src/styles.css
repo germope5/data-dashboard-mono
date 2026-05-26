@@ -1,0 +1,7 @@
+body { font-family: Inter, system-ui, Arial; margin: 0; padding: 1rem; }
+.app { max-width: 1100px; margin: 0 auto; }
+.controls { display:flex; gap:8px; margin-bottom:12px }
+.table-wrap { max-height: 600px; overflow: auto; border: 1px solid #ddd }
+.data-table { width: 100%; border-collapse: collapse }
+.data-table th, .data-table td { padding: 8px; border-bottom: 1px solid #eee; text-align: left }
+.pager { margin-top: 8px }
