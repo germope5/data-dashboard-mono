@@ -2,6 +2,8 @@ body { font-family: Inter, system-ui, Arial; margin: 0; padding: 1rem; }
 .app { max-width: 1100px; margin: 0 auto; }
 .controls { display:flex; gap:8px; margin-bottom:12px }
 .table-wrap { max-height: 600px; overflow: auto; border: 1px solid #ddd }
-.data-table { width: 100%; border-collapse: collapse }
-.data-table th, .data-table td { padding: 8px; border-bottom: 1px solid #eee; text-align: left }
+.data-table-header { background: #fafafa; border-bottom: 1px solid #eee }
+.virtual-row { display: grid; grid-template-columns: 80px 1fr 120px 100px 140px; align-items: center; padding: 8px; border-bottom: 1px solid #eee }
+.virtual-row.header { font-weight: 600; background: #f5f7fa }
+.virtual-cell { padding: 0 8px }
 .pager { margin-top: 8px }
