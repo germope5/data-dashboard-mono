@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { fetchData, Row } from './api'
 import DataTable from './components/DataTable'
+import Dashboard from './components/Dashboard'
 
 export default function App() {
   const [rows, setRows] = useState<Row[]>([])
@@ -46,6 +47,8 @@ export default function App() {
         </select>
         <button onClick={() => { setOffset(0) }}>Filtrar</button>
       </section>
+
+      <Dashboard />
 
       <section>
         {loading ? <p>Cargando...</p> : <>
