@@ -1,0 +1,17 @@
+{
+  "name": "data-dashboard-mono",
+  "private": true,
+  "version": "0.0.0",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "install:all": "pnpm install",
+    "dev:backend": "pnpm --filter backend dev",
+    "dev:frontend": "pnpm --filter frontend dev",
+    "dev": "concurrently \"pnpm --filter backend dev\" \"pnpm --filter frontend dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+}
