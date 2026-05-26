@@ -80,6 +80,30 @@ app.post('/api/ai/insights', (req, res) => {
   res.json({ insight, tops });
 });
 
+// Proxy to Ollama local server for LLM-based insights
+app.post('/api/ai/ollama', async (req, res) => {
+  const OLLAMA_URL = process.env.OLLAMA_URL || 'http://localhost:11434'
+  const { model = 'llama2', prompt } = req.body || {}
+  if (!prompt) return res.status(400).json({ error: 'prompt is required' })
+
+  const endpoint = `${OLLAMA_URL}/api/generate`
+  try {
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model, prompt })
+    })
+    if (!response.ok) {
+      const text = await response.text()
+      return res.status(502).json({ error: 'Ollama error', details: text })
+    }
+    const result = await response.json()
+    return res.json({ result })
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to contact Ollama', message: err.message })
+  }
+})
+
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
   // eslint-disable-next-line no-console
