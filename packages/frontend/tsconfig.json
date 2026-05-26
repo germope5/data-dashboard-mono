@@ -5,6 +5,7 @@
     "lib": ["DOM", "ESNext"],
     "module": "ESNext",
     "moduleResolution": "node",
+    "ignoreDeprecations": "6.0",
     "strict": true,
     "jsx": "react-jsx",
     "esModuleInterop": true,
