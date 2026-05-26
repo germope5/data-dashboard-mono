@@ -11,20 +11,23 @@ export default function App() {
   const [category, setCategory] = useState('')
   const [loading, setLoading] = useState(false)
 
-  async function load() {
-    setLoading(true)
-    try {
-      const res = await fetchData(offset, limit, q, category)
-      setRows(res.data)
-      setTotal(res.total)
-    } catch (e) {
-      console.error(e)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  useEffect(() => { load() }, [offset, q, category])
+  useEffect(() => {
+    let cancelled = false
+    ;(async () => {
+      setLoading(true)
+      try {
+        const res = await fetchData(offset, limit, q, category)
+        if (cancelled) return
+        setRows(res.data)
+        setTotal(res.total)
+      } catch (e) {
+        console.error(e)
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    })()
+    return () => { cancelled = true }
+  }, [offset, q, category, limit])
 
   return (
     <div className="app">
@@ -41,7 +44,7 @@ export default function App() {
           <option value="C">C</option>
           <option value="D">D</option>
         </select>
-        <button onClick={() => { setOffset(0); load() }}>Filtrar</button>
+        <button onClick={() => { setOffset(0) }}>Filtrar</button>
       </section>
 
       <section>
